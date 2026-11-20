@@ -1250,20 +1250,23 @@ components:
       type: string
       description: >-
         The AI provider OpenBot's Bots run on. openai: OpenAI. anthropic:
-        Anthropic. google: Google Gemini. xai: xAI. unbiased: Unbiased AI.
-        trustedrouter: TrustedRouter. openai-compatible: any server that
+        Anthropic. google: Google Gemini. xai: xAI. cloudflare: Cloudflare AI
+        Gateway, billed to the person's Cloudflare credits. unbiased: Unbiased
+        AI. trustedrouter: TrustedRouter. openai-compatible: any server that
         speaks OpenAI's API, at an address given.
-      enum: [openai, anthropic, google, xai, unbiased, trustedrouter, openai-compatible]
+      enum: [openai, anthropic, google, xai, cloudflare, unbiased, trustedrouter, openai-compatible]
     AiConnectionProviderAnswer:
       type: string
-      x-extensible-enum: [openai, anthropic, google, xai, unbiased, trustedrouter, openai-compatible]
+      x-extensible-enum: [openai, anthropic, google, xai, cloudflare, unbiased, trustedrouter, openai-compatible]
       description: >-
         The AI provider OpenBot's Bots run on, as the server answers it.
         openai: OpenAI. anthropic: Anthropic. google: Google Gemini. xai:
-        xAI. unbiased: Unbiased AI. trustedrouter: TrustedRouter.
-        openai-compatible: any server that speaks OpenAI's API, at an address
-        given. The list can grow: a client shows a provider it doesn't know
-        by its id. A request still names one of AiConnectionProvider.
+        xAI. cloudflare: Cloudflare AI Gateway, billed to the person's
+        Cloudflare credits. unbiased: Unbiased AI. trustedrouter:
+        TrustedRouter. openai-compatible: any server that speaks OpenAI's API,
+        at an address given. The list can grow: a client shows a provider it
+        doesn't know by its id. A request still names one of
+        AiConnectionProvider.
     AiConnectionLogin:
       type: string
       description: >-
@@ -1271,7 +1274,8 @@ components:
         ChatGPT plan (openai, anthropic). api-key: a key from the provider
         (openai, anthropic). endpoint: an address and, where it asks for one,
         a key (google, xai, unbiased, trustedrouter, openai-compatible).
-        oauth: the person's Google or xAI sign-in (google, xai).
+        oauth: the person's Google, xAI or Cloudflare sign-in (google, xai,
+        cloudflare).
       enum: [plan, api-key, endpoint, oauth]
     AiConnectionSaved:
       type: object
@@ -1385,8 +1389,9 @@ components:
       additionalProperties: false
       description: >-
         The connection to switch to. openai and anthropic take plan or
-        api-key; google and xai take endpoint or oauth; unbiased,
-        trustedrouter and openai-compatible take endpoint. Any other pair is
+        api-key; google and xai take endpoint or oauth; cloudflare takes
+        oauth; unbiased, trustedrouter and openai-compatible take endpoint.
+        Any other pair is
         refused.
       required: [provider, login]
       properties:
