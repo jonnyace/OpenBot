@@ -72,7 +72,7 @@ import { isComposing } from "@/lib/composing";
 import { ALWAYS_ON_APP } from "@/lib/connections/rows";
 import { deploymentCapabilitiesQueryOptions } from "@/lib/deployment/queries";
 import { myCapabilitiesQueryOptions } from "@/lib/enterprise/queries";
-import { loadFailure } from "@/lib/load-failure";
+import { loadFailure, failureSaid } from "@/lib/load-failure";
 import { type PluginServer, pluginKeys } from "@/lib/plugins/queries";
 import { cn } from "@/lib/utils";
 import { queryClient } from "@/query-client";
@@ -548,7 +548,7 @@ function NewBotFlow({ onCreated }: { onCreated: (agentId: string) => void }) {
 
         {createAgent.error ? (
           <p className="mt-6 text-destructive text-sm" role="alert">
-            {createAgent.error.message}
+            {failureSaid(createAgent.error)}
           </p>
         ) : null}
       </div>

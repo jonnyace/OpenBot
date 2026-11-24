@@ -68,6 +68,7 @@ import {
   teamValue,
 } from "@/lib/teams/queries";
 import { queryClient } from "@/query-client";
+import { failureSaid } from "@/lib/load-failure";
 
 /** Everybody in the organization, as an assignment carries it. */
 const EVERYONE = "*";
@@ -92,7 +93,7 @@ export function SharingSections({ agent }: { agent: AgentProfile }) {
   if (data.error) {
     return (
       <p className="mt-6 text-destructive text-sm" role="alert">
-        {data.error.message}
+        {failureSaid(data.error)}
       </p>
     );
   }
@@ -105,7 +106,7 @@ export function SharingSections({ agent }: { agent: AgentProfile }) {
       <PageSection title="Published">
         {unpublish.error ? (
           <p className="mt-4 text-destructive text-sm" role="alert">
-            {unpublish.error.message}
+            {failureSaid(unpublish.error)}
           </p>
         ) : null}
         {published ? (
@@ -400,7 +401,7 @@ function PublishDialog({
                     </p>
                     {teams.isPending ? null : teams.error ? (
                       <p className="text-destructive text-sm" role="alert">
-                        {teams.error.message}
+                        {failureSaid(teams.error)}
                       </p>
                     ) : teams.data.teams.length === 0 ? (
                       <p className="text-muted-foreground text-sm">
@@ -511,7 +512,7 @@ function PublishDialog({
           </form>
           {publish.error ? (
             <p className="mt-4 text-destructive text-sm" role="alert">
-              {publish.error.message}
+              {failureSaid(publish.error)}
             </p>
           ) : null}
         </DialogBody>
@@ -562,7 +563,7 @@ function Assignments({
     <>
       {remove.error ? (
         <p className="mt-4 text-destructive text-sm" role="alert">
-          {remove.error.message}
+          {failureSaid(remove.error)}
         </p>
       ) : null}
       {assigned.length === 0 ? (
@@ -691,7 +692,7 @@ function AssignDialog({
           </form>
           {assign.error ? (
             <p className="mt-4 text-destructive text-sm" role="alert">
-              {assign.error.message}
+              {failureSaid(assign.error)}
             </p>
           ) : null}
         </DialogBody>
